@@ -1,46 +1,22 @@
+#!/usr/bin/env node
 /* eslint-disable no-undef */
-const path = require("path");
-const { SQLite3Gateway } = require("../api/com.qcobjects.admin.db.sqlite3.gateway");
+
+import path from "node:path";
+import SQLite3Gateway from "../js/packages/com.qcobjects.admin.lib.db.sqlite3";
+import { logger } from "qcobjects";
 const absolutePath = path.resolve(__dirname, "./");
 
 describe("SQLite3 DB Main Test", function () {
-  var originalTimeout;
-
-  beforeEach(function() {
-      originalTimeout = jasmine.DEFAULT_TIMEOUT_INTERVAL;
-      jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
-  });
 
   const gateway = new SQLite3Gateway();
 
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
   const testConfig = require(absolutePath+"/sqlite3TestData.js");
 
-  const databaseId = testConfig.database.id;
-
-  /**
-   * Cleanup the database and collection on completion
-   */
-  async function cleanup() {
-    const gateway = new SQLite3Gateway();
-    await gateway.database(databaseId).delete();
-  }
-
   async function close() {
-    gateway.getClient().close("databseTest");
+    gateway.getClient().close();
   }
 
-
-  /**
-   * Exit the app with a prompt
-   * @param {string} message - The message to display
-   */
-  function exit(message) {
-    console.log(message);
-    console.log("Press any key to exit");
-    process.stdin.setRawMode(true);
-    process.stdin.resume();
-    process.stdin.on("data", process.exit.bind(process, 0));
-  }
 
   const createDatabase = async () => {
     const gateway = new SQLite3Gateway();
@@ -60,20 +36,20 @@ describe("SQLite3 DB Main Test", function () {
     return await gateway.readContainer("databaseTest", "tabletest");
   };
 
-  const createFamilyItem = async (item) => {
+  const createFamilyItem = async (item: any) => {
     const gateway = new SQLite3Gateway();
     logger.info("[createFamilyItem]");
     return await gateway.createFamilyItem("databaseTest", "tabletest", item);
   };
 
-  const updateFamilyItem = async (item) => {
+  const updateFamilyItem = async (item: any) => {
     const gateway = new SQLite3Gateway();
     logger.info("[createFamilyItem]");
     return await gateway.createFamilyItem("databaseTest", "tabletest", item);
   };
 
 
-  const getFamilyItem = async (item) => {
+  const getFamilyItem = async (item: any) => {
     const gateway = new SQLite3Gateway();
     logger.info("[getFamilyItem]");
     return await gateway.getFamilyItem("databaseTest", "tabletest", item);
@@ -98,7 +74,7 @@ describe("SQLite3 DB Main Test", function () {
   };
 
 
-  const deleteFamilyItem = async (item) => {
+  const deleteFamilyItem = async (item: any) => {
     const gateway = new SQLite3Gateway();
     logger.info("[deleteFamilyItem]");
     return await gateway.deleteFamilyItem("databaseTest", "tabletest", item);

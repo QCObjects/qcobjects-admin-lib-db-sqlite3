@@ -1,17 +1,44 @@
 {
     "name": "qcobjects-admin-lib-db-sqlite3",
     "version": "0.0.20",
-    "repository": {},
-    "scripts": {
-        "sync": "git add . && git commit -am ",
-        "test": "((npx eslint *.js api/**/*.js --fix) && (npx jasmine))",
-        "preversion": "(npm cache verify && npm test)",
-        "postversion": "git push && git push --tags",
-        "start": "node app.js"
+    "description": "QCObjects Admin Lib to work with SQLite3",
+    "main": "public/js/index.cjs",
+    "module": "public/js/index.mjs",
+    "exports": {
+        ".": {
+            "require": "./public/js/index.cjs",
+            "import": "./public/js/index.mjs"
+        },
+        "./package.json": "./package.json"
     },
+    "type": "commonjs",
+    "types": "src/**/*.d.ts",
+    "scripts": {
+        "test": "npm run build:tests && npm run lint && jasmine --config=src/spec/support/jasmine.json",
+        "lint": "(npx eslint \"src/**/*.ts\" --fix --ext ts)",
+        "sync": "git add . && git commit -am ",
+        "preversion": "npm i --upgrade && npm test",
+        "postversion": "git push && git push --tags",
+        "v-patch": "qcobjects v-patch",
+        "v-minor": "qcobjects v-minor",
+        "v-major": "qcobjects v-major",
+        "qcobjects": "qcobjects",
+        "cli": "qcobjects",
+        "build:static": "npx qcobjects publish:static src/ build/ --exclude js --exclude=spec --exclude=.DS_Store",
+        "build:ts": "npm test && npx tsc",
+        "build:tests": "(cp src/spec/sqlite3TestData.js build/spec/) && (npx tsc --project tsconfig.tests.json)",
+        "build:ts-types": "npx tsc --project tsconfig.d.json",
+        "build": "npm run build:ts-types && npm run build:ts && npm run build:static && npm run publish:static",
+        "publish:static": "(npx qcobjects publish:static build/ public/ --exclude=spec --exclude=.DS_Store)",
+        "prepare": "node -e \"if(!require('fs').existsSync('.git')){process.exit(0)}\" || npx -y husky install",
+        "prestart": "npm run publish:web",
+        "cli:help": "qcobjects --help",
+        "tree": "tree -d --gitignore"
+    },
+    "repository": {},
     "keywords": [
+        "qcobjects-api",
         "qcobjects",
-        "newapp",
         "qcobjects-admin-lib",
         "js",
         "javascript"
@@ -19,18 +46,42 @@
     "author": "Jean Machuca (correojean@gmail.com)",
     "license": "LGPL-3.0-or-later",
     "devDependencies": {
-        "eslint": ">=8",
-        "eslint-config-qcobjects": "0.0.11",
-        "jasmine": "^3.99.0",
-        "qcobjects": "latest",
-        "qcobjects-cli": "^2.4.65",
-        "qcobjects-sdk": "latest"
+        "@types/jasmine": "^4.3.4",
+        "@types/qcobjects": "github:QCObjects/-types-qcobjects",
+        "@types/qcobjects-api": "github:QCObjects/-types-qcobjects-api",
+        "@types/qcobjects-sdk": "github:QCObjects/-types-qcobjects-sdk",
+        "@types/sqlite3": "^3.1.8",
+        "@typescript-eslint/eslint-plugin": "^5.59.0",
+        "@typescript-eslint/parser": "^5.58.0",
+        "eslint": "^8.39.0",
+        "eslint-config-prettier": "^8.8.0",
+        "eslint-config-qcobjects": "^0.0.26",
+        "eslint-config-qcobjects-typescript": "^2.4.5",
+        "eslint-config-semistandard": "^17.0.0",
+        "eslint-config-standard": "^17.0.0",
+        "eslint-config-standard-with-typescript": "^34.0.1",
+        "eslint-plugin-import": "^2.27.5",
+        "eslint-plugin-n": "^15.7.0",
+        "eslint-plugin-promise": "^6.1.1",
+        "hint": "^2.0.0",
+        "husky": "^8.0.3",
+        "lint-staged": "^13.2.1",
+        "qcobjects-cli": "^2.4.66",
+        "qcobjects-command-publish-static": "^1.0.4",
+        "qcobjects-tsconfig": "^2.4.10",
+        "semistandard": "^17.0.0",
+        "typescript": "^5.0.4"
     },
     "peerDependencies": {
-        "jasmine": "^3.6.4",
-        "qcobjects": ">=2.4",
-        "qcobjects-cli": ">=2.4",
-        "qcobjects-sdk": ">=2.4"
+        "qcobjects": "^2.4.73",
+        "qcobjects-sdk": "^2.4.34"
+    },
+    "engines": {
+        "npm": ">=8",
+        "node": ">=16"
+    },
+    "lint-staged": {
+        "**/*": "prettier --write --ignore-unknown"
     },
     "dependencies": {
         "sqlite3": "^5.1.6"

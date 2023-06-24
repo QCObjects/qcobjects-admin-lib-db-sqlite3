@@ -1,0 +1,9 @@
+{
+  "extends": "qcobjects-tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "allowSyntheticDefaultImports":true,
+    "outDir": "build"
+  },
+  "include": ["src/spec/*.spec.ts", "src/spec/**/*.spec.ts"],
+  "exclude": ["src/**/*.spec.js", "src/*.js", "src/*.d.ts"]
+}

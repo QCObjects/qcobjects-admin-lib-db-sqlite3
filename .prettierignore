@@ -1,0 +1,8 @@
+# Ignore artifacts:
+node_modules
+lib
+coverage
+dist
+public
+build
+src/**/.d.ts
