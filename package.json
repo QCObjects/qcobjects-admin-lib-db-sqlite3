@@ -1,6 +1,6 @@
 {
     "name": "qcobjects-admin-lib-db-sqlite3",
-    "version": "1.0.0",
+    "version": "0.0.20",
     "repository": {},
     "scripts": {
         "sync": "git add . && git commit -am ",
