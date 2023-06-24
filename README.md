@@ -1,43 +1,34 @@
-# QCObjects Handler Hello World
+# QCObjects Admin Lib Db SQLite3
 
-# Install 
+QCObjects Admin Lib for working with SQLite3 Database.
 
-```shell
-npm i qcobjects-handler-hello-world
-```
+## Instructions
 
-# Setup in your config.json
-
-```json
-"backend":{
-    "routes":[
-        {
-            "name":"Hello World!",
-            "description":"Hello world Microservice!",
-            "path":"^/hello-world",
-            "microservice":"qcobjects-handler-hello-world",
-            "headers": {
-              "content-type": "text/html; charset=utf-8"
-            },
-            "responseHeaders":{
-            },
-            "cors":{
-              "allow_origins":"*"
-            }
-        }
-    ]
-}
-```
-
-# Visit
-
-Visit https://localhost:port/hello-world
-
-# Create your own microservice
-
-To make your own microservice, you can generate it with QCObjects CLI using this package as template:
+1. Install this dependency in your project using npm
 
 ```shell
-qcobjects create --custom=qcobjects-handler-hello-world myown-handler-microservice
+npm i --save qcobjects-admin-lib-db-sqlite3
 ```
 
+2. In your config.json file, create the following settings
+
+```shell
+    "backend":{
+      "db_engine":{
+        "name":"sqlite3",
+        "databaseName":"admin.db"
+      }, ...
+```
+
+1. Test the integration
+
+```shell
+npm test
+```
+
+4. Start the QCObjects HTTP2 Server
+
+```shell
+qcobjects-server
+```
+If you haven't installed QCObjects before, learn more about [Installing QCObjects here](https://docs.qcobjects.org/#installing)
