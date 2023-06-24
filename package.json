@@ -1,6 +1,6 @@
 {
     "name": "qcobjects-admin-lib-db-sqlite3",
-    "version": "0.0.20",
+    "version": "0.0.21",
     "description": "QCObjects Admin Lib to work with SQLite3",
     "main": "public/js/index.cjs",
     "module": "public/js/index.mjs",
