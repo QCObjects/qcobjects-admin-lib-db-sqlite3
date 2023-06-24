@@ -1,0 +1,38 @@
+{
+    "name": "qcobjects-admin-lib-db-sqlite3",
+    "version": "1.0.0",
+    "repository": {},
+    "scripts": {
+        "sync": "git add . && git commit -am ",
+        "test": "((npx eslint *.js api/**/*.js --fix) && (npx jasmine))",
+        "preversion": "(npm cache verify && npm test)",
+        "postversion": "git push && git push --tags",
+        "start": "node app.js"
+    },
+    "keywords": [
+        "qcobjects",
+        "newapp",
+        "qcobjects-admin-lib",
+        "js",
+        "javascript"
+    ],
+    "author": "Jean Machuca (correojean@gmail.com)",
+    "license": "LGPL-3.0-or-later",
+    "devDependencies": {
+        "eslint": ">=8",
+        "eslint-config-qcobjects": "0.0.11",
+        "jasmine": "^3.99.0",
+        "qcobjects": "latest",
+        "qcobjects-cli": "^2.4.65",
+        "qcobjects-sdk": "latest"
+    },
+    "peerDependencies": {
+        "jasmine": "^3.6.4",
+        "qcobjects": ">=2.4",
+        "qcobjects-cli": ">=2.4",
+        "qcobjects-sdk": ">=2.4"
+    },
+    "dependencies": {
+        "sqlite3": "^5.1.6"
+    }
+}
