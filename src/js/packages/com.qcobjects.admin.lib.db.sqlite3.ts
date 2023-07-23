@@ -27,6 +27,7 @@
 import { InheritClass, logger } from "qcobjects";
 import path from "node:path";
 import { Database, OPEN_READWRITE } from "sqlite3";
+import { existsSync, writeFileSync } from "node:fs";
 
 class SQLite3Container {
   pipe:any;
@@ -339,7 +340,11 @@ class DatabasesHandler {
       const databaseName = `${id}.sqlite`;
       logger.info(`Creating DatabaseName: ${path.resolve(`./${databaseName}`)}`);
       try {
-        const db = new Database(path.resolve(`./${databaseName}`), OPEN_READWRITE, (err:any) => {
+        const databasePath = path.resolve(`./${databaseName}`);
+        if (!existsSync(databasePath)){
+          writeFileSync(databasePath, "");
+        }
+        const db = new Database(databasePath, OPEN_READWRITE, (err:any) => {
           if (err) {
             throw new Error(`[sqlite3][database][createIfNotExists] Error creating database: ${err}`);
           }

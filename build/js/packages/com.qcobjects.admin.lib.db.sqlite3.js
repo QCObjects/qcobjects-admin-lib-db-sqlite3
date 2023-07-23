@@ -31,6 +31,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const qcobjects_1 = require("qcobjects");
 const node_path_1 = __importDefault(require("node:path"));
 const sqlite3_1 = require("sqlite3");
+const node_fs_1 = require("node:fs");
 class SQLite3Container {
     constructor({ pipe, id, containerFields }) {
         this.pipe = pipe;
@@ -293,7 +294,11 @@ class DatabasesHandler {
             const databaseName = `${id}.sqlite`;
             qcobjects_1.logger.info(`Creating DatabaseName: ${node_path_1.default.resolve(`./${databaseName}`)}`);
             try {
-                const db = new sqlite3_1.Database(node_path_1.default.resolve(`./${databaseName}`), sqlite3_1.OPEN_READWRITE, (err) => {
+                const databasePath = node_path_1.default.resolve(`./${databaseName}`);
+                if (!(0, node_fs_1.existsSync)(databasePath)) {
+                    (0, node_fs_1.writeFileSync)(databasePath, "");
+                }
+                const db = new sqlite3_1.Database(databasePath, sqlite3_1.OPEN_READWRITE, (err) => {
                     if (err) {
                         throw new Error(`[sqlite3][database][createIfNotExists] Error creating database: ${err}`);
                     }
