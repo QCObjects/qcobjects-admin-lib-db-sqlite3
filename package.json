@@ -12,7 +12,7 @@
         "./package.json": "./package.json"
     },
     "type": "commonjs",
-    "types": "src/**/*.d.ts",
+    "types": "src/js/**/*.d.ts",
     "scripts": {
         "test": "npm run build:tests && npm run lint && jasmine --config=src/spec/support/jasmine.json",
         "lint": "(npx eslint \"src/**/*.ts\" --fix --ext ts)",
