@@ -6,4 +6,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 require("./config");
 const com_qcobjects_admin_lib_db_sqlite3_1 = __importDefault(require("./packages/com.qcobjects.admin.lib.db.sqlite3"));
 require("./package");
-exports.default = com_qcobjects_admin_lib_db_sqlite3_1.default;
+exports.default = { SQLite3Gateway: com_qcobjects_admin_lib_db_sqlite3_1.default };

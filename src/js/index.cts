@@ -24,5 +24,5 @@
  * license document, but changing it is not allowed.
 */
 
-import api from "./index";
-export default api;
+import SQLite3Gateway from "./index";
+export default SQLite3Gateway;

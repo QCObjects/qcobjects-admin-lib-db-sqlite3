@@ -9,12 +9,13 @@
             "require": "./public/js/index.cjs",
             "import": "./public/js/index.mjs"
         },
-        "./package.json": "./package.json"
+        "./package.json": "./package.json",
+        "./types":"./src/types.d.ts"
     },
     "type": "commonjs",
-    "types": "src/js/**/*.d.ts",
+    "types": "src/types.d.ts",
     "scripts": {
-        "test": "npm run build:tests && npm run lint && jasmine --config=src/spec/support/jasmine.json",
+        "test": "mkdir -p build/spec && npm run build:tests && npm run lint && jasmine --config=src/spec/support/jasmine.json",
         "lint": "(npx eslint \"src/**/*.ts\" --fix --ext ts)",
         "sync": "git add . && git commit -am ",
         "preversion": "npm i --upgrade && npm test",
